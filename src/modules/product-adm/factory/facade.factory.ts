@@ -1,7 +1,7 @@
 import ProductAdmFacade from "../facade/product-adm.facade";
 import ProductRepository from "../repository/product.repository";
 import AddProductUseCase from "../usecase/add-product/add-product.usecase";
-import { StockOutputDto } from "../usecase/stock-use-case/stock-use-case";
+import { StockOutputDto } from "../usecase/stock-use-case/stock-use-case.dto";
 import StockUseCase from "../usecase/stock-use-case/stock-usecase";
 
 export default class ProductAdmFacadeFactory {

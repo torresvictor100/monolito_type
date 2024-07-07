@@ -1,5 +1,5 @@
 import ProductGateway from "../../gateway/product.gateway";
-import { StockInputDto, StockOutputDto } from "./stock-use-case";
+import { StockInputDto, StockOutputDto } from "./stock-use-case.dto";
 
 
 export default class StockUseCase{
