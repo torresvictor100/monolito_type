@@ -1,8 +1,5 @@
-
-
 import Address from "../../../@shared/domain/entity/address"
 import AddClientUseCase from "./add-client.usecase"
-
 
 const MockRepository = () => {
   return {
