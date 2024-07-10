@@ -34,24 +34,24 @@ export default class GenerationInvoiceUseCase {
             items: items
         });
 
-        const savedInvoice = await this._invoiceRepository.save(invoice);
+        await this._invoiceRepository.save(invoice);
 
         return {
-            id: savedInvoice.id.id,
-            name: savedInvoice.name,
-            document: savedInvoice.document,
-            street: savedInvoice.address.street,
-            number: savedInvoice.address.number,
-            complement: savedInvoice.address.complement,
-            city: savedInvoice.address.city,
-            state: savedInvoice.address.state,
-            zipCode: savedInvoice.address.zipCode,
-            items: savedInvoice.items.map(item => ({
+            id: invoice.id.id,
+            name: invoice.name,
+            document: invoice.document,
+            street: invoice.address.street,
+            number: invoice.address.number,
+            complement: invoice.address.complement,
+            city: invoice.address.city,
+            state: invoice.address.state,
+            zipCode: invoice.address.zipCode,
+            items: invoice.items.map(item => ({
                 id: item.id.id,
                 name: item.name,
                 price: item.price
             })),
-            total: savedInvoice.getTotal(),
+            total: invoice.getTotal(),
         };
     }
 }
