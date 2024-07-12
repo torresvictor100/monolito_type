@@ -11,7 +11,6 @@ export default class FindInvoiceUseCase {
     }
 
     async execute(input: FindInvoiceUseCaseInputDTO): Promise<FindInvoiceUseCaseOutputDTO>{
-
         const findInvoice = await this._invoiceRepository.find(input.id);
 
         return {

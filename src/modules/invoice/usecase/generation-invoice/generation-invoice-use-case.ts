@@ -13,6 +13,8 @@ export default class GenerationInvoiceUseCase {
     }
 
     async execute(input: GenerateInvoiceUseCaseInputDto): Promise<GenerateInvoiceUseCaseOutputDto> {
+
+        
         const items = input.items.map(itemDto => {
             return new InvoiceItems({
                 name: itemDto.name,
@@ -34,24 +36,24 @@ export default class GenerationInvoiceUseCase {
             items: items
         });
 
-        await this._invoiceRepository.save(invoice);
+        const invoiceSave = await this._invoiceRepository.save(invoice);
 
         return {
-            id: invoice.id.id,
-            name: invoice.name,
-            document: invoice.document,
-            street: invoice.address.street,
-            number: invoice.address.number,
-            complement: invoice.address.complement,
-            city: invoice.address.city,
-            state: invoice.address.state,
-            zipCode: invoice.address.zipCode,
-            items: invoice.items.map(item => ({
+            id: invoiceSave.id.id,
+            name: invoiceSave.name,
+            document: invoiceSave.document,
+            street: invoiceSave.address.street,
+            number: invoiceSave.address.number,
+            complement: invoiceSave.address.complement,
+            city: invoiceSave.address.city,
+            state: invoiceSave.address.state,
+            zipCode: invoiceSave.address.zipCode,
+            items: invoiceSave.items.map(item => ({
                 id: item.id.id,
                 name: item.name,
                 price: item.price
             })),
-            total: invoice.getTotal(),
+            total: invoiceSave.getTotal(),
         };
     }
 }
