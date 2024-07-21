@@ -4,11 +4,13 @@ import { ProductModel } from "../../../product-adm/repository/product.model";
 import { productRouter } from "../../../product-adm/api/routes/product.route";
 import { ClientModel } from "../../../client-adm/repository/client.model";
 import { clientAdmRouter } from "../../../client-adm/api/routes/client-adm.router";
+import { checkoutRouter } from "../../../checkout/api/routes/placeorder.router";
 
 export const app: Express = express();
 app.use(express.json());
 app.use("/product", productRouter)
 app.use("/client-adm", clientAdmRouter)
+app.use("/checkout", checkoutRouter)
 
 export let sequelize: Sequelize;
 

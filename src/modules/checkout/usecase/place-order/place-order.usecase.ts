@@ -1,4 +1,3 @@
-import { or } from "sequelize";
 import Id from "../../../@shared/domain/value-object/id.value-object";
 import UseCaseInterface from "../../../@shared/usecase/use-case.interface";
 import ClientAdmFacadeInterface from "../../../client-adm/facade/client-adm.facade.interface";
@@ -11,6 +10,7 @@ import Order from "../../domain/order.entity";
 import Product from "../../domain/product.entity";
 import CheckoutGateway from "../../gateway/checkout.gateway";
 import { PlaceOrderInputDto, PlaceOrderOutputDto } from "./place-order.dto";
+import Address from "../../../@shared/domain/entity/address";
 
 
 export default class PlaceOrderUseCase implements UseCaseInterface {
@@ -57,7 +57,15 @@ export default class PlaceOrderUseCase implements UseCaseInterface {
             id: new Id(client.id),
             name: client.name,
             email: client.email,
-            address: client.address.street,
+            document: client.document,
+            address: new Address(
+                client.address.street,
+                client.address.number,
+                client.address.complement,
+                client.address.state,
+                client.address.state,
+                client.address.zipCode    
+            )
         });
 
 
