@@ -10,12 +10,14 @@ import { OrderModel } from "../../../checkout/repository/order.model";
 import InvoiceModel from "../../../invoice/repository/invoice.model";
 import InvoiceItemModel from "../../../invoice/repository/invoice-item.model";
 import { ProductSalesModel } from "../../../checkout/repository/product-sales.model";
+import { invoiceRouter } from "../../../invoice/api/routes/invoice.router";
 
 export const app: Express = express();
 app.use(express.json());
 app.use("/product", productRouter)
 app.use("/client-adm", clientAdmRouter)
 app.use("/checkout", checkoutRouter)
+app.use("/invoice", invoiceRouter)
 
 export let sequelize: Sequelize;
 

@@ -1,4 +1,3 @@
-import { CreatedAt } from "sequelize-typescript";
 import Address from "../../@shared/domain/entity/address";
 import Id from "../../@shared/domain/value-object/id.value-object";
 import Client from "../domain/client.entity";

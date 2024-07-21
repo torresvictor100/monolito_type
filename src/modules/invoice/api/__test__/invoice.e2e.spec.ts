@@ -1,7 +1,7 @@
 import { app, sequelize } from "../../../@shared/infrastructure/api/express";
 import request from "supertest";
 
-describe("E2E test for checkout", () => {
+describe("E2E test for get invoice", () => {
 
     beforeEach(async () => {
         await sequelize.sync({force: true});
@@ -11,7 +11,7 @@ describe("E2E test for checkout", () => {
         await sequelize.close();
     });
 
-    it("should create ckeckout ", async () => {
+    it("should create get invoice ", async () => {
 
         const responseClient = await request(app)
         .post("/client-adm")
@@ -50,12 +50,19 @@ describe("E2E test for checkout", () => {
         expect(responseProduct.body.purchasePrice).toEqual(1000);
 
 
-        const response = await request(app)
+        const responseCkeckout = await request(app)
         .post("/checkout")
         .send({
             clientId: responseClient.body.id,
             products: [{productId: responseProduct.body.id}]
         });
+
+        expect(responseCkeckout.status).toBe(200);
+
+        const invoiceId = responseCkeckout.body.invoiceId;
+
+        const response = await request(app)
+        .get(`/invoice/${invoiceId}`);
 
         expect(response.status).toBe(200);
 
