@@ -11,6 +11,7 @@ import Product from "../../domain/product.entity";
 import CheckoutGateway from "../../gateway/checkout.gateway";
 import { PlaceOrderInputDto, PlaceOrderOutputDto } from "./place-order.dto";
 import Address from "../../../@shared/domain/entity/address";
+import OrderRepository from "../../repository/order.repository";
 
 
 export default class PlaceOrderUseCase implements UseCaseInterface {
@@ -18,7 +19,7 @@ export default class PlaceOrderUseCase implements UseCaseInterface {
     private _clientFacade: ClientAdmFacadeInterface;
     private _productFacade: ProductAdmFacadeInterface;
     private _catalogFacade: StoreCatalogFacadeInterface;
-    private _repository: CheckoutGateway;
+    private _repository: OrderRepository;
     private _invoiceFacade: InvoiceFacadeInterface;
     private _paymentFacade: PaymentFacadeInterface;
 
@@ -68,12 +69,10 @@ export default class PlaceOrderUseCase implements UseCaseInterface {
             )
         });
 
-
         const order = new Order({
             client: myClient,
             products: products,
         });
-
 
         const payment = await this._paymentFacade.process({
             orderId: order.id.id,
@@ -95,9 +94,7 @@ export default class PlaceOrderUseCase implements UseCaseInterface {
         }): null;
 
         payment.status === "approved" && order.approved()
-        this._repository.addOrder(order);
-
-
+        await this._repository.addOrder(order);
 
         return {
             id: order.id.id,
@@ -131,14 +128,16 @@ export default class PlaceOrderUseCase implements UseCaseInterface {
 
     private async getProduct(productId: string): Promise<Product> {
         const product = await this._catalogFacade.find({ id: productId });
+
         if (!product) {
             throw new Error("Product not found");
         }
+        
         const productProps = {
             id: new Id(product.id),
             name: product.name,
             description: product.description,
-            salesPrice: product.salesPrice,
+            salesPrice: product.purchasePrice,
         };
         return new Product(productProps);
     }

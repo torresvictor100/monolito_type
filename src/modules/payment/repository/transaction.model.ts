@@ -9,7 +9,7 @@ import { Column, Model, PrimaryKey, Table } from "sequelize-typescript";
     @Column({ allowNull: false })
     id: string;
   
-    @Column({ allowNull: false, field: "order_id" })
+    @Column({ allowNull: false })
     orderId: string;
   
     @Column({ allowNull: false })
@@ -18,9 +18,9 @@ import { Column, Model, PrimaryKey, Table } from "sequelize-typescript";
     @Column({ allowNull: false })
     status: string;
   
-    @Column({ allowNull: false, field: "created_at" })
+    @Column({ allowNull: false })
     createdAt: Date;
   
-    @Column({ allowNull: false, field: "updated_at" })
+    @Column({ allowNull: false })
     updatedAt: Date;
   }

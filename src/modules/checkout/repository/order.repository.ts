@@ -13,7 +13,7 @@ import { ProductSalesModel } from "./product-sales.model";
 export default class OrderRepository implements CheckoutGateway {
     async addOrder(input: Order): Promise<Order> {
 
-        const orderModel = await OrderModel.create({
+    const orderModel = await OrderModel.create({
             id: input.id.id,
             clientId:input.client.id.id,
             products: input.products.map((product) => ({

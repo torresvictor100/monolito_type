@@ -100,7 +100,10 @@ describe("PlaceOrderUseCase", ()=> {
                     id: "0",
                     name: "Product 0",
                     description: "describe",
-                    salesPrice: 10,
+                    purchasePrice: 10,
+                    stock: 100,
+                    createdAt: new Date(),
+                    updatedAt: new Date(),
                 })
             }
 
